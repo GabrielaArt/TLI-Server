@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const notificacionSchema = new Schema({
     contenido: String,
-    created_at: { type: Date, default: null },
+    created_at: { type: Date, default: new Date() },
     Usuario: [{ type: Schema.Types.ObjectId, ref: 'Usuario' }]
 });
 
