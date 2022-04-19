@@ -1,22 +1,27 @@
 const FilesController = require('../controller/files.controller');
 const DAOComment = require('../dao/usuario.dao');
+const path = require('path');
 
 //Comentar
-guardar = async(Comment) => {
+guardar = async(Comentario) => {
     try{
-        /* Guardar foto de comentario */
-        //Generar ruta y nombre del archivo
-        let date = new Date();
-        date = Date.parse(date);
+        if(Comentario.fotoRoute != null){
+            /* Guardar foto de comentario */
+            //Generar ruta y nombre del archivo
+            let date = new Date();
+            date = Date.parse(date);
 
-        let path = __dirname + '../app/resources/comentario/';
-        let fileName = Comment._idUsuario + '_' + date + '.jpg'
+            let pathRoute = __dirname + '../app/resources/comentario/';
+            let fileName = Comentario._idUsuario + '_' + date + '.' + path.extname(Comentario.fotoRoute);
 
-        //Guardar foto
-        // Comment.fotoRoute = await FilesController.upFile({ path, name: fileName, file: Comment.fotoRoute });
+            //Guardar foto
+            Comentario.fotoRoute = await FilesController.upFile({ path: pathRoute, name: fileName, file: Comentario.fotoRoute });
+        }
 
         //Guardar comentario
-        if(await DAOComment.create(Comment) === true){
+        let comentarioResult = await DAOComment.create(Comentario);
+
+        if(comentarioResult === true){
             return 'Comentario registrado con exito';
         }
     }

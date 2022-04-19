@@ -21,8 +21,8 @@ router.get('/leer', (req, res) => {
 });
 
 //Eliminar
-router.put('/eliminar/:idPublicacion', (req, res) => {
-    PublicacionController.eliminar(req.param)
+router.put('/eliminar', (req, res) => {
+    PublicacionController.eliminar(req.body)
     .then(_ => { res.json({ status: 200, message: 'Publicacion eliminada' }) })
     .catch(error => res.json({ status: 500, mesage: error }));
 });

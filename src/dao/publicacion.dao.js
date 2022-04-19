@@ -38,10 +38,10 @@ update = async (Publication) => {
     try {
         //Actualizar
         Publicacion.findOneAndUpdate({ _id }, { encabezado, contenido, fotoRoute, estado, updated_now: new Date() }, error => {
-            if(!error){
-                return true;
+            if(error){
+                throw error;
             }
-            throw error;
+            return true;
         });
     }
     catch(error){
@@ -53,11 +53,11 @@ update = async (Publication) => {
 deleted = async (_id) => {
     try{
         Publicacion.findOneAndUpdate({ _id }, { deleted_at: new Date() }, (error) => {
-            if(!error){
-                return true;
+            if(error){
+                throw error;
             }
-            throw error;
         });
+        return true;
     }
     catch(error){
         console.log(error);

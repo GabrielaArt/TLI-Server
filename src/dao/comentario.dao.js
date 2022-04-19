@@ -8,12 +8,8 @@ create = async (Comment) => {
         const comentario = new Comentario(Comment);
 
         //Guardar [comentario]
-        await comentario.save(error => {
-            if(!error){
-                return true;
-            }
-            return false;
-        });
+        await comentario.save();
+        return true;
     }
     catch(error){
         console.log(error);

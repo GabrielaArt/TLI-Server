@@ -3,7 +3,7 @@ const { Schema, model } = mongoose;
 
 const comentarioSchema = new Schema({
     contenido: String,
-    fotoRoute: String,
+    fotoRoute: { type: String, default: null},
     created_at: { type: Date, default: new Date() },
     deleted_at: { type: Date, default: null },
     updated_at: { type: Date, default: null },

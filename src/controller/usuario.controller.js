@@ -13,11 +13,11 @@ save = async(Usuario) => {
             let date = new Date();
             date = Date.parse(date);
 
-            // let pathRoute = __dirname + '../app/resources/perfil/';
-            // let fileName = Usuario.nombre + Usuario.primerApellido + Usuario.segundoApellido + 'Profile' + '_' + date + path.extname(Usuario.fotoRoute)/* extension del archivo */;
+            let pathRoute = __dirname + '../app/resources/perfil/';
+            let fileName = Usuario.nombre + Usuario.primerApellido + Usuario.segundoApellido + 'Profile' + '_' + date + '.' + path.extname(Usuario.fotoRoute)/* extension del archivo */;
             
             //Guardar foto
-            // Usuario.fotoRoute = await FilesController.upFile({ path: pathRoute, name: fileName, file: Usuario.fotoRoute });
+            Usuario.fotoRoute = await FilesController.upFile({ path: pathRoute, name: fileName, file: Usuario.fotoRoute });
         }
 
         //Encriptar contrasenia
