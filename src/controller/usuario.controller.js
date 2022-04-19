@@ -1,23 +1,27 @@
 const FilesController = require('../controller/files.controller');
 const EncryptController = require('../controller/encrypt.controller');
 const DAOUser = require('../dao/usuario.dao');
+const path = require('path');
 
 //Registrar
 save = async(Usuario) => {
     try{
-        /* Guardar foto de usuario */
-        //Generar ruta y nombre del archivo
-        let date = new Date();
-        date = Date.parse(date);
+        //Validar si hay foto
+        if(Usuario.fotoRoute != null){
+            /* Guardar foto de usuario */
+            //Generar ruta y nombre del archivo
+            let date = new Date();
+            date = Date.parse(date);
 
-        let path = __dirname + '../app/resources/perfil/';
-        let fileName = Usuario.nombre + Usuario.primerApellido + Usuario.segundoApellido + 'Profile' + '_' + date + '.jpg';
-        
-        //Guardar foto
-        // Usuario.fotoRoute = await FilesController.upFile({ path, name: fileName, file: Usuario.fotoRoute });
+            // let pathRoute = __dirname + '../app/resources/perfil/';
+            // let fileName = Usuario.nombre + Usuario.primerApellido + Usuario.segundoApellido + 'Profile' + '_' + date + path.extname(Usuario.fotoRoute)/* extension del archivo */;
+            
+            //Guardar foto
+            // Usuario.fotoRoute = await FilesController.upFile({ path: pathRoute, name: fileName, file: Usuario.fotoRoute });
+        }
 
         //Encriptar contrasenia
-        Usuario.contrasenia = await EncryptController.encriptar(contrasenia);
+        Usuario.contrasenia = await EncryptController.encriptar(Usuario.contrasenia);
 
         //Guardar usuario
         if(await DAOUser.create(Usuario) === true){
@@ -54,7 +58,11 @@ login = async(Usuario) => {
         //Comprobar existencia -usuario-
         let result = await DAOUser.readUserAndPasswd(Usuario);
 
-        return result;
+        if(result != true){
+            return { status: 404, message: result }
+        }
+
+        return { status: 200 }
     }
     catch(error){
         console.log(error);

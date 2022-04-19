@@ -9,12 +9,8 @@ create = async (User) => {
         const usuario = new Usuario(User);
 
         //Guardar [usuario]
-        await usuario.save(error => {
-            if(!error){
-                return true;
-            }
-            return false;
-        });
+        await usuario.save();
+        return true;
     }
     catch(error){
         console.log(error);
@@ -27,22 +23,20 @@ readUserAndPasswd = async (User) => {
 
     try{
         //Consultar -user- con las coincidencias de [mail] y este activo [isDeleted: 0]
-        await Usuario.findOne({ mail: mail, deleted_at: null },(err, User) => {
-            if(!err){
-                //
-                if(User != null){
-                    if(EncryptController.desencriptar(User.contrasenia) === EncryptController.desencriptar(contrasenia)){
-                        return true;
-                    }
-                    else{
-                        return 'Contrasenia incorrecta';
-                    }
-                }
-                else{
-                    return 'Usuario no encontrado';
-                }
+        let UserResult = await Usuario.findOne({ mail: mail, deleted_at: null }).exec();
+        
+        //Se encontro el usuario
+        if(UserResult != null){
+            if(await EncryptController.desencriptar(UserResult.contrasenia) === contrasenia){
+                return true;
             }
-        });
+            else{
+                return 'Contrasenia incorrecta';
+            }
+        }
+        else{
+            return 'Usuario no encontrado';
+        }
     }
     catch(error){
         console.log(error);
@@ -54,7 +48,7 @@ update = async (User) => {
     const { _id, nombre, primerApellido, segundoApellido, contrasenia, fotoRoute/*fotoFile*/ } = User;
 
     try{
-        Usuario.findOneAndUpdate({ _id: _id }, { nombre, primerApellido, segundoApellido, contrasenia, fotoRoute, updatedAt: new Date() }, error => {
+        Usuario.findOneAndUpdate({ _id }, { nombre, primerApellido, segundoApellido, contrasenia, fotoRoute, updatedAt: new Date() }, error => {
             if(!error){
                 return true;
             }
@@ -67,10 +61,10 @@ update = async (User) => {
 };
 
 //Elimminar (logico)
-deleted = async (id) => {
+deleted = async (_id) => {
     try{
-        //Actualizar campo [isDeleted] a -1- (para hacer el borrado logico)
-        Usuario.findOneAndUpdate({ _id: id }, { deleted_at: new Date() }, (error) => {
+        //Actualizar campo [deleted_at] a -1- (para hacer el borrado logico)
+        Usuario.findOneAndUpdate({ _id }, { deleted_at: new Date() }, (error) => {
             if(!error){
                 return true;
             }

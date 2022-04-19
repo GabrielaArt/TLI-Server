@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const NotificacionController = require('../controller/notificacion.controller');
 
+router.use(express.json());
+
 //Crear
 router.post('/crear',(req, res) => {
     NotificacionController.crear()

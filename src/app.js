@@ -29,9 +29,9 @@ const notificacionRoute = require('./routes/notificacion.routes');
 /* [ Middlewares ] */
 //Routes
 application.use('/api/usuario',usuarioRoute);
-// application.use('/api/publicacion',publicacionRoute);
+application.use('/api/publicacion',publicacionRoute);
 application.use('/api/comentario',comentarioRoute);
-// application.use('/api/notificacion',notificacionRoute);
+application.use('/api/notificacion',notificacionRoute);
 
 //StaticFiles
 application.use(express.static(__dirname + '/public'));

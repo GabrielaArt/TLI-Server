@@ -18,12 +18,8 @@ router.post('/crear', (req, res) => {
 //Login
 router.put('/login', (req, res) => {
     UsuarioController.login(req.body)
-    .then(Login => {
-        res.json({ status: 200, message: Login });
-    })
-    .catch(error => {
-        res.json({ status: 500, message: error });
-    });
+    .then(Login => res.json(Login))
+    .catch(error => res.json({ status: 500, message: error }));
 });
 
 module.exports = router;
