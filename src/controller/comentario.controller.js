@@ -1,5 +1,5 @@
 const FilesController = require('../controller/files.controller');
-const DAOComment = require('../dao/usuario.dao');
+const DAOComment = require('../dao/comentario.dao');
 const path = require('path');
 
 //Comentar
@@ -12,7 +12,7 @@ guardar = async(Comentario) => {
             date = Date.parse(date);
 
             let pathRoute = __dirname + '../app/resources/comentario/';
-            let fileName = Comentario._idUsuario + '_' + date + '.' + path.extname(Comentario.fotoRoute);
+            let fileName = Comentario.Usuario + '_' + date + '.' + path.extname(Comentario.fotoRoute);
 
             //Guardar foto
             Comentario.fotoRoute = await FilesController.upFile({ path: pathRoute, name: fileName, file: Comentario.fotoRoute });

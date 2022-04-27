@@ -1,5 +1,5 @@
 const FilesController = require('../controller/files.controller');
-const UbicacionController = require('../controller/Ubicacion.controller');
+const UbicacionController = require('../controller/ubicacion.controller');
 const DAOPublication = require('../dao/publicacion.dao');
 const path = require('path');
 

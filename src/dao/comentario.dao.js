@@ -36,11 +36,9 @@ deleted = async (_id) => {
     try{
         //Borrado logico
         Comentario.findOneAndUpdate({ _id }, { deleted_at: new Date() }, (error) => {
-            if(!error){
-                return true;
-            }
             throw error;
         });
+        return true;
     }
     catch(error){
         console.log(error);

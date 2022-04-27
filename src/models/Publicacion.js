@@ -9,8 +9,8 @@ const publicacionSchema = new Schema({
     created_at: { type: Date, default: new Date() },
     deleted_at: { type: Date, default: null },
     updated_at: { type: Date, default: null },
-    Usuario: [{ type: Schema.Types.ObjectId, ref: 'Usuario' }],
-    Ubicacion: [{ type: Schema.Types.ObjectId, ref: 'Ubicacion' }]
+    Usuario: { type: Schema.Types.ObjectId, ref: 'Usuario' },
+    Ubicacion: { type: Schema.Types.ObjectId, ref: 'Ubicacion' }
 });
 
 module.exports = model('Publicacion', publicacionSchema);
