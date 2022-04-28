@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 
 /* [ Directories (Vista / Rutas) ] */
-import App from './views/layouts/Login.vue'; //Vista principal
+import App from './views/components/card/card.vue'; //Vista principal
 // import authRoute from './routes/authentication.route.js' 
 // import userRoute from './routes/user.route.js'
 // import publicationRoute from './routes/publication.route.js'
