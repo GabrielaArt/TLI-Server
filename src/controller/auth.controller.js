@@ -1,5 +1,7 @@
-const EncryptController = require('../controller/encrypt.controller');
+require('dotenv').config();
+const jwt = require('jsonwebtoken');
 const DAOUser = require('../dao/usuario.dao');
+const EncryptController = require('../controller/encrypt.controller');
 
 //Login
 login = async(Usuario) => {
@@ -11,10 +13,13 @@ login = async(Usuario) => {
         let result = await DAOUser.readUserAndPasswd(Usuario);
 
         if(result != true){
-            return { status: 404, message: result }
+            return { status: 404, message: result, token: null }
         }
 
-        return { status: 200 }
+        //Firmar el -LogIn- con token()
+        const token = jwt.sign({ _id:Usuario._id, mail: Usuario.mail  }, process.env.TOKEN_SECRET);
+
+        return { status: 200, token }
     }
     catch(error){
         console.log(error);
@@ -22,5 +27,7 @@ login = async(Usuario) => {
 };
 
 //Logout
+
+
 
 module.exports = { login };

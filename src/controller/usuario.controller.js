@@ -32,6 +32,17 @@ save = async(Usuario) => {
     }
 };
 
+//Consultar (ById)
+readById = async (_id) => {
+    try{
+        let result = await Usuario.readById(_id);
+        return result;
+    }
+    catch(error){
+        console.log(error);
+    }
+};
+
 //Actualizar
 update = async(Usuario) => {
     try{
@@ -48,4 +59,4 @@ update = async(Usuario) => {
     }
 };
 
-module.exports = { save, update };
+module.exports = { save, update, readById };

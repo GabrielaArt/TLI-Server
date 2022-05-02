@@ -9,7 +9,9 @@ create = async (Comment) => {
 
         //Guardar [comentario]
         await comentario.save();
-        return true;
+
+        //
+        return { status: 200, message: comentario };
     }
     catch(error){
         console.log(error);

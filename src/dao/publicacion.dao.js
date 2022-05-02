@@ -9,7 +9,9 @@ create = async (Publication) => {
 
         //Guardar [publicacion]
         await publicacion.save();
-        return true;
+
+        //
+        return { status: 200, message: publicacion };
     } 
     catch(error){
         console.log(error);

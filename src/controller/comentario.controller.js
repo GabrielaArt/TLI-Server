@@ -21,9 +21,11 @@ guardar = async(Comentario) => {
         //Guardar comentario
         let comentarioResult = await DAOComment.create(Comentario);
 
-        if(comentarioResult === true){
-            return 'Comentario registrado con exito';
+        if(comentarioResult.status === 200){
+            return comentarioResult.message;
         }
+
+        throw 'Se genero un error al intentar crear comentario' + comentarioResult;
     }
     catch(error){
         console.log(error);

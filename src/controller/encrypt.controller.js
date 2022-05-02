@@ -4,7 +4,7 @@ const CryptoJS = require('crypto-js');
 //Encriptar
 encriptar = async (text) => {
     try{
-        return CryptoJS.AES.encrypt(text, process.env.SECRET_KEY).toString();
+        return CryptoJS.AES.encrypt(text, process.env.TOKEN_SECRET).toString();
     }
     catch(error){
         console.log(error);
@@ -14,7 +14,7 @@ encriptar = async (text) => {
 //Encriptar
 desencriptar = async (text) => {
     try{
-        text = CryptoJS.AES.decrypt(text,process.env.SECRET_KEY);
+        text = CryptoJS.AES.decrypt(text,process.env.TOKEN_SECRET);
         return text.toString(CryptoJS.enc.Utf8);
     }
     catch(error){

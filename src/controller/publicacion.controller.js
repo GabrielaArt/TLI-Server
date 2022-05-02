@@ -25,8 +25,8 @@ publicar = async(Publicacion) => {
         //Guardar publicacion
         let publicacionResult = await DAOPublication.create(Publicacion);
 
-        if(publicacionResult === true){
-            return 'Publicacion realizada con exito';
+        if(publicacionResult.status === 200){
+            return publicacionResult.message;
         }
 
         throw 'Se genero un error al intentar crear la publicacion' + publicacionResult;

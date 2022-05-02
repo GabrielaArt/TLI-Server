@@ -17,7 +17,24 @@ create = async (User) => {
     }
 };
 
-//Consultar [Login]
+//ConsultarById
+readById = async (_id) => {
+    try{
+        let UserResult = await Usuario.findOne({ _id: _id, deleted_at: null }).exec();
+
+        //Se encontro el usuario
+        if(UserResult != null){
+            return UserResult;
+        }
+
+        return false;
+    }
+    catch(error){
+        console.log(error);
+    }
+};
+
+//Login
 readUserAndPasswd = async (User) => {
     let { mail, contrasenia } = User;
 
@@ -60,7 +77,7 @@ update = async (User) => {
     }
 };
 
-//Elimminar (logico)
+//Eliminar (logico)
 deleted = async (_id) => {
     try{
         //Actualizar campo [deleted_at] a -1- (para hacer el borrado logico)
@@ -76,4 +93,4 @@ deleted = async (_id) => {
     }
 };
 
-module.exports = { create, update, readUserAndPasswd };
+module.exports = { create, update, readById, readUserAndPasswd };
