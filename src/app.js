@@ -2,7 +2,7 @@
 require('dotenv').config();
 const express = require('express'); //Constante que instancia la libreria 'express'.
 const http = require('http');
-const validarToken = require('./middleware/validateToken');//Middleware 
+// const validarToken = require('./middleware/validateToken');//Middleware 
 
 /* [ Initializations ] */
 const application = express();

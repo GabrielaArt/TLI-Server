@@ -30,17 +30,29 @@ read = async () => {
     return listPublicaciones;
 };
 
+//Leer por usuario
+readByUser = async (_idUser) => {
+    try{
+        let _Publicaciones = await Publicacion.find({ Usuario: _idUser, deleted_at: null }).exec();
+
+        if(_Publicaciones.length > 0){
+            return { status: 200, message: _Publicaciones }
+        }
+
+        return { status: 404, message: 'Not Found' };
+    }
+    catch(error){
+        console.log(error);
+    }
+}
+
 //Actualizar
 update = async (Publication) => {
     const { _id, encabezado, contenido, fotoRoute, estado } = Publication;
 
     try {
         //Actualizar
-        Publicacion.findOneAndUpdate({ _id }, { encabezado, contenido, fotoRoute, estado, updated_now: new Date() }, error => {
-            if(error){
-                throw 'Error: %e',error;
-            }
-        });
+        Publicacion.findOneAndUpdate({ _id }, { encabezado, contenido, fotoRoute, estado, updated_now: new Date() }).exec();
 
         return true;
     }
@@ -62,4 +74,4 @@ deleted = async (_id) => {
     }
 };
 
-module.exports = { create, read, deleted, update };
+module.exports = { create, read, readByUser, deleted, update };

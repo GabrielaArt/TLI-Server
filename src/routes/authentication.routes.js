@@ -13,14 +13,16 @@ router.post('/crear', (req, res) => {
 });
 
 //login
-router.put('/login', (req, res) => { 
-    AuthController.login()
+router.post('/login', (req, res) => { 
+    AuthController.login(req.body)
     .then(result => { 
-        if(result.token != null){
-            res.header('auth-token', result.token).json({
-                data: { status: 200, message: message.result }
-            });
-        }
+        res.json(result);
+
+        // if(result.token != null){
+        //     res.header('auth-token', result.token).json({
+        //         data: { status: 200, message: message.result }
+        //     });
+        // }
     })
     .catch(error => { res.json({status:500, error: error.details[0].message }) });
 });

@@ -1,4 +1,5 @@
 const FilesController = require('../controller/files.controller');
+const EncryptController = require('../controller/encrypt.controller');
 const DAOUser = require('../dao/usuario.dao');
 const path = require('path');
 
@@ -35,7 +36,7 @@ save = async(Usuario) => {
 //Consultar (ById)
 readById = async (_id) => {
     try{
-        let result = await Usuario.readById(_id);
+        let result = await DAOUser.readById(_id);
         return result;
     }
     catch(error){

@@ -45,14 +45,14 @@ readUserAndPasswd = async (User) => {
         //Se encontro el usuario
         if(UserResult != null){
             if(await EncryptController.desencriptar(UserResult.contrasenia) === contrasenia){
-                return true;
+                return { status: 200, message: UserResult };
             }
             else{
-                return 'Contrasenia incorrecta';
+                return { status: 404, messge: 'Contrasenia incorrecta' };
             }
         }
         else{
-            return 'Usuario no encontrado';
+            return { status: 404, messge: 'Usuario no encontrado' };
         }
     }
     catch(error){

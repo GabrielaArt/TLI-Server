@@ -18,9 +18,9 @@ router.post('/publicar', (req, res) => {
 });
 
 //leerByPublicacion
-router.get('/leer', (req, res) => {
-    ComentarioController.consultarByPublicacion()
-    .then(result => { res.json({ status:200, message: result }) })
+router.post('/leer', (req, res) => {
+    ComentarioController.consultarByPublicacion(req.body)
+    .then(result => { res.json(result) })
     .catch(error => { res.json({ status:500, error: error.details[0].message }) });
 });
 

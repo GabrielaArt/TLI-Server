@@ -47,6 +47,16 @@ leer = async () => {
     }
 };
 
+leerByUsuario = async (idUsuario) => {
+    try {
+        let _Publicaciones = await DAOPublication.readByUser(idUsuario);
+        return _Publicaciones;
+    } 
+    catch(error){
+        console.log(error);
+    }
+}
+
 //Actualizar
 actualizar = async(Publicacion) => {
     try {
@@ -72,4 +82,4 @@ eliminar = async (_id) => {
     }
 };
 
-module.exports = { publicar, leer, actualizar, eliminar };
+module.exports = { publicar, leer, leerByUsuario, actualizar, eliminar };

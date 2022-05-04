@@ -19,14 +19,25 @@ create = async (Comment) => {
 };
 
 //Consultar todos los [Comentarios] pertenecientes a una [Publicacion]
-readByPublication = async (_idPublicacion) => {
+readByPublication = async (Publicacion) => {
+    let { _id } = Publicacion;
+
     try{
-        Comentario.find({ _idPublicacion }, (error, _Comentarios) => {
-            if(!error){
-                return _Comentarios;
-            }
-            throw error;
-        });
+        let _Comentarios = await Comentario.find({ Publicacion: _id })
+        .populate('Usuario')
+        .exec()
+        .then(_Comentarios => {
+            return _Comentarios;
+        })
+        .catch(error => { return error });
+    
+        //
+        if(_Comentarios.length > 0){
+            return { status: 200, message: _Comentarios }
+        }
+        else{
+            return { status: 404, message: 'Not found' };
+        }
     }
     catch(error){
         console.log(error);

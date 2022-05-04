@@ -24,6 +24,13 @@ router.get('/leer', (req, res) => {
     .catch(error => { res.json({ status:500, error: error.details[0].message }) });
 });
 
+//leerByUsuario
+router.put('/leerByUsuario', (req, res)=> {
+    PublicacionController.leerByUsuario(req.body)
+    .then(result => res.json(result))
+    .catch(error => { res.json({ status:500, error: error.details[0].message }) });
+});
+
 //actualizar
 router.put('/actualizar', (req, res) => {
     PublicacionController.actualizar(req.body)

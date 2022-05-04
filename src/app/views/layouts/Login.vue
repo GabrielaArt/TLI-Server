@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="text-start">
-                            <img src="img/logo-large.jpg" width="128"/>
+                            <img src="img/large-logo.jpg" width="128"/>
                         </div>
                     </div>
                     <div class="col">
@@ -22,22 +22,22 @@
                 <h2 class="fw-bold text-center py-5">Bienvenido</h2>
                 
                 <!-- Formulario - Login -->
-                <form>
+                <form @submit.prevent="login(usuario)">
                     <div class="mb-4">
                         <label for="inpMail" class="form-label">Correo</label>
-                        <input id="inpMail" type="mail" class="form-control" placeholder="example@example.ts" required/>
+                        <input id="inpMail" type="mail" class="form-control" placeholder="example@example.ts" v-model="usuario.mail" required/>
                     </div>
                     <div class="mb-4">
                         <label for="inpPasswrd" class="form-label">Contraseña</label>
-                        <input id="inpPasswrd" type="password" class="form-control" placeholder="***************" required/>
+                        <input id="inpPasswrd" type="password" class="form-control" placeholder="***************" v-model="usuario.contrasenia" required/>
                     </div>
                     <div class="d-grid">
-                        <a type="submit" class="btn btn-success">
+                        <button type="submit" class="btn btn-success">
                             Acceder
-                        </a>
+                        </button>
                     </div>
                     <div class="my-2 text-center">
-                        <router-link :to="{ path: '#' }">Registrate</router-link>
+                        <a href="#">Registrate</a>
                     </div>
                 </form>
             </div>
@@ -46,11 +46,34 @@
 </template>
 
 <script>
-    export default {
-        data() {
-            return {}
+class User {
+    constructor(user, password){
+        this.user = user,
+        this.password = password
+    }
+}
+
+export default {
+    data() {
+        return {
+            usuario: new User()
+        }
+    },
+    methods: {
+        login(usuario){
+            fetch('/api/auth/login', {
+                method: 'POST',
+                body: JSON.stringify(usuario),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-type': 'application/json'
+                }
+            })
+            .then(respuesta => respuesta.json())
+            .then(respuesta => console.log(respuesta));
         }
     }
+}
 </script>
 
 <style lang="css" scoped>

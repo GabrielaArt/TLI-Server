@@ -4,10 +4,10 @@ const { Schema, model } = mongoose;
 let usuarioSchema = new Schema({
     nombre: { type: String, required: true },
     primerApellido: { type: String, required: true },
-    segundoApellido: String,
+    segundoApellido: { type: String, default: null },
     mail: { type: String, unique: true },
     contrasenia: { type: String, required: true },
-    celular: String,
+    celular: { type: String, default: null },
     // fotoRoute: String,
     created_at: { type: Date, default: new Date() },
     deleted_at: { type: Date, default: null },
